@@ -1,0 +1,17 @@
+
+version: '3.8'
+services:
+  cv-engine:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - KAFKA_BROKER=kafka:9092
+  kafka:
+    image: bitnami/kafka:latest
+    ports:
+      - "9092:9092"
+  db:
+    image: timescale/timescaledb:latest-pg14
+    environment:
+      - POSTGRES_PASSWORD=password
