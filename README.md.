@@ -1,0 +1,19 @@
+# Construction Equipment Utilization Tracking
+
+## 🏗️ Architecture Overview
+This project demonstrates a distributed computer vision pipeline designed to monitor heavy machinery in real-time. It uses **YOLOv8** for detection and a custom **Region-Based Motion Analysis** for activity tracking.
+
+### Tech Stack:
+* **AI/CV:** YOLOv8, OpenCV (Background Subtraction MOG2).
+* **Messaging:** Apache Kafka (Microservices communication).
+* **Storage:** PostgreSQL/TimescaleDB.
+* **UI:** Streamlit/Plotly Dashboard.
+
+## 🧠 Solving the Articulated Motion Challenge
+A key requirement was detecting an **ACTIVE** state even when the machine's base is stationary (e.g., an excavator arm digging). 
+**My Solution:** Instead of relying on bounding box movement, I implemented **pixel-level motion energy analysis** within the detected region of interest (ROI). By applying a MOG2 mask, the system calculates the ratio of moving pixels. If this ratio exceeds a $2\%$ threshold, the machine is flagged as **ACTIVE**, ensuring high-fidelity utilization tracking.
+
+## 🚀 How to Run (Docker)
+1. Clone the repo.
+2. Run `docker-compose up --build`.
+3. Access the Streamlit dashboard at `localhost:8501`.
